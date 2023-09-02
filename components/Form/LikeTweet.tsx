@@ -34,7 +34,12 @@ const LikeTweet = ({
         className="hover:bg-red-600/10 rounded-full cursor-pointer p-2"
         onClick={handleLike}
       >
-        <Heart size={18} />
+        {" "}
+        {post.user_liked ? (
+          <Heart size={18} fill="red" color="red" />
+        ) : (
+          <Heart size={18} />
+        )}
       </div>
       <span className="ml-2">{post.like_length}</span>
     </div>
