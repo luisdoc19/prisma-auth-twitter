@@ -36,11 +36,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     user_liked: post.like.map((like: Like) => like.user_id).includes(user?.id),
   }));
 
-  return (
-    <div>
-      <PostsTweets posts={posts} id={session.user.id} />
-    </div>
-  );
+  return <PostsTweets posts={posts} id={session.user.id} />;
 };
 
 export default page;

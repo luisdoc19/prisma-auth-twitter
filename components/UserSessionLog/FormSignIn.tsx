@@ -36,7 +36,6 @@ const FormSignIn = () => {
       redirect: false,
     });
     setLoading(false);
-    console.log(res);
     if (res?.error) setError(res.error);
     if (!res?.error) window.location.href = "/";
   });
@@ -57,7 +56,7 @@ const FormSignIn = () => {
           <input
             type="email"
             placeholder="user@user.com"
-            className={`peer/input outline-none block box-border w-full rounded-md shadow-sm transition-all text-[#ededed] border text-sm px-4 py-2 mt-2 ${
+            className={`peer/input outline-none block box-border w-full rounded-md shadow-sm transition-all text-[#ededed] border text-base px-4 py-2 mt-2 ${
               errors.email || error
                 ? "border-red-700 focus:ring-red-500 bg-red-300/10 placeholder:text-red-600"
                 : " bg-[#222222]  focus:ring-2 focus:border-[#494949] focus:ring-[#272727] placeholder-[#505050]  border-[#3e3e3e]"
@@ -82,7 +81,7 @@ const FormSignIn = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
-            className={`peer/input outline-none block box-border w-full rounded-md shadow-sm transition-all text-[#ededed] border text-sm px-4 py-2 mt-2 ${
+            className={`peer/input outline-none block box-border w-full rounded-md shadow-sm transition-all text-[#ededed] border text-base px-4 py-2 mt-2 ${
               errors.password || error
                 ? "border-red-700 focus:ring-red-500 bg-red-300/10 placeholder:text-red-600"
                 : " bg-[#222222]  focus:ring-2 focus:border-[#494949] focus:ring-[#272727] placeholder-[#505050]  border-[#3e3e3e]"

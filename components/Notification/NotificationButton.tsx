@@ -19,7 +19,7 @@ const NotificationButton = ({ id }: { id: string }) => {
   return (
     <Link
       href="/notifications"
-      className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+      className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const NotificationButton = ({ id }: { id: string }) => {
         <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
         <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
       </svg>
-      <span className="text-white text-xl">Notifications</span>
+      <span className="text-white text-xl max-xl:hidden">Notifications</span>
     </Link>
   );
 };

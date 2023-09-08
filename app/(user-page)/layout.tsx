@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { PublicUsers } from "@prisma/client";
+import { authOptions } from "@/libs/authOptions";
 
 import {
   Bookmark,
   Mail,
   MoreHorizontal,
   ScrollText,
-  Settings,
   User as UserImage,
   Users2,
-  MailPlus,
 } from "lucide-react";
+
 import DropdownMenu from "@/components/User/DropdownMenu";
-import Link from "next/link";
-import { PublicUsers } from "@prisma/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/authOptions";
-import { redirect } from "next/navigation";
-import React from "react";
-import UserProfileChat from "@/components/User/UserProfileChat";
+import NotificationButton from "@/components/Notification/NotificationButton";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -39,47 +36,18 @@ export default async function RootLayout({
       where: { id: session?.user?.id },
     });
 
-  const data = await prisma?.message.findMany({
-    where: {
-      OR: [
-        {
-          userOne_id: session?.user?.id,
-        },
-        {
-          userTwo_id: session?.user?.id,
-        },
-      ],
-    },
-    include: {
-      directMessage: true,
-      userOne: true,
-      userTwo: true,
-    },
-  });
-
-  const messages: MessageWithUsers[] | undefined = data?.map((msg) => {
-    const user =
-      (msg.userTwo_id === session?.user?.id && msg.userOne) ||
-      (msg.userOne_id === session?.user?.id && msg.userTwo);
-
-    return {
-      ...msg,
-      user,
-    };
-  });
-
   return (
-    <div className="min-h-full">
-      <div className="max-w-[1200px] grid grid-cols-[0.6fr_1fr_1.4fr] mx-auto h-[100vh] max-h-[100vh]">
-        <aside className="border-r border-zinc-600 h-screen pt-2 pb-5 flex justify-between flex-col">
-          <div>
-            <div className="px-4">
+    <div className="min-h-full mx-auto">
+      <div className="max-w-[1200px] flex flex-row mx-auto h-[100vh] max-h-[100vh] justify-center">
+        <aside className="border-r border-zinc-600 h-screen pt-2 pb-5 flex justify-between w-max flex-col pr-9 max-xl:pr-0">
+          <div className="w-max flex flex-col ml-auto pr-1">
+            <div className="px-4 w-max max-xl:mx-auto">
               <Link href="/" className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-brand-twitter-filled"
-                  width="40"
-                  height="40"
+                  width="35"
+                  height="35"
                   viewBox="0 0 24 24"
                   strokeWidth="2"
                   stroke="currentColor"
@@ -96,11 +64,11 @@ export default async function RootLayout({
                 </svg>
               </Link>
             </div>
-            <ul className="mt-2">
-              <li>
+            <ul className="mt-2 w-max mx-auto">
+              <li className="w-max">
                 <Link
                   href="/"
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -117,13 +85,15 @@ export default async function RootLayout({
                     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                     <polyline points="9 22 9 12 15 12 15 22" />
                   </svg>
-                  <span className="text-white font-bold text-xl">Home</span>
+                  <span className="text-white font-bold text-xl max-xl:hidden">
+                    Home
+                  </span>
                 </Link>
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href="?explore=true"
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -141,89 +111,80 @@ export default async function RootLayout({
                     <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
                     <path d="M21 21l-6 -6"></path>
                   </svg>
-                  <span className="text-white text-xl">Explore</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Explore
+                  </span>
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/"
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="icon icon-tabler icon-tabler-bell"
-                    width="26"
-                    height="26"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
-                    <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-                  </svg>
-                  <span className="text-white text-xl">Notifications</span>
-                </Link>
+              <li className="w-max mt-2">
+                <NotificationButton id={session.user.id} />
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
-                  href="/"
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  href="/messages"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <Mail />
-                  <span className="text-white text-xl">Messages</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Messages
+                  </span>
                 </Link>
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href={"/"}
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <ScrollText />
-                  <span className="text-white text-xl">Lists</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Lists
+                  </span>
                 </Link>
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href={"/"}
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <Bookmark fill="true" />
-                  <span className="text-white text-xl">Bookmarks</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Bookmarks
+                  </span>
                 </Link>
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href={"/"}
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <Users2 />
-                  <span className="text-white text-xl">Communities</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Communities
+                  </span>
                 </Link>
               </li>
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href={"/"}
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <UserImage />
-                  <span className="text-white text-xl">Profile</span>
+                  <span className="text-white text-xl max-xl:hidden">
+                    Profile
+                  </span>
                 </Link>
               </li>
 
-              <li>
+              <li className="w-max mt-2">
                 <Link
                   href={"/"}
-                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl"
+                  className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <MoreHorizontal />
-                  <span className="text-white text-xl">More</span>
+                  <span className="text-white text-xl max-xl:hidden">More</span>
                 </Link>
               </li>
-              <li className="mt-5">
+              <li className="mt-5 max-xl:hidden w-max">
                 <Link href={"/post/create"}>
                   <button className="bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-20 py-3 w-max">
                     Post
@@ -232,33 +193,13 @@ export default async function RootLayout({
               </li>
             </ul>
           </div>
-          <div className="flex items-end">
+          <div className="flex items-end max-xl:hidden">
             <DropdownMenu publicUser={user} />
           </div>
         </aside>
-        <div className="w-full border-r border-zinc-600">
-          <header className="flex flex-row justify-between p-4">
-            <div>
-              <h2 className="text-xl font-bold">Messages</h2>
-            </div>
-            <div className="flex flex-row gap-2">
-              <Settings />
-              <MailPlus />
-            </div>
-          </header>
-          <main>
-            <div className="p-4">
-              <input
-                type="search"
-                className="bg-black w-full py-2 px-4 rounded-3xl border border-zinc-500 outline-none"
-              />
-            </div>
-            <div>
-              <UserProfileChat messages={messages} />
-            </div>
-          </main>
-        </div>
-        <main className="border-r border-zinc-600">{children}</main>
+        <main className="w-full max-w-[910px] flex flex-row gap-5">
+          {children}
+        </main>
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export default async function handle(
       },
     });
 
-    const userNotification = `notification:${response.post.user_id}`;
+    const userNotification = `notification:${response.post_id}`;
     res?.socket?.server?.io?.emit(userNotification, response);
 
     if (!response) {

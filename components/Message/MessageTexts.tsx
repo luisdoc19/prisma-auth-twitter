@@ -53,7 +53,7 @@ const MessageTexts = ({
 
   return (
     <>
-      <section className="p-3 overflow-y-scroll" ref={chatRef}>
+      <section className=" pr-3 pb-2" ref={chatRef}>
         <div className="grid place-items-center pb-10 border-b border-zinc-600 hover:bg-zinc-900 pt-3">
           <div className="text-center">
             <Image
@@ -121,7 +121,7 @@ const MessageTexts = ({
         </div>
         <div ref={bottomRef} />
       </section>
-      <section className="sticky bg-[#212327] p-3 flex flex-row rounded-2xl overflow-hidden">
+      <section className="sticky bottom-1 bg-[#212327] px-5 py-3 flex flex-row rounded-2xl overflow-hidden">
         <div className="flex flex-row gap-3 items-center">
           <ImageIcon width={17} color="#4a99e9" />
           <Gift width={17} color="#4a99e9" />
