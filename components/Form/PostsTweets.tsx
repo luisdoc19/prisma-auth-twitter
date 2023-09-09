@@ -8,6 +8,7 @@ import { experimental_useOptimistic as useOptimistic } from "react";
 import { UserHover } from "../User/UserHover";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getTimeAgoSinceCreated } from "@/utils/getTime";
 
 type PostsWithUser = Posts & {
   user: PublicUsers;
@@ -38,32 +39,6 @@ const PostsTweets = ({
   });
 
   const router = useRouter();
-
-  function getTimeAgoSinceCreated(created_at: Date) {
-    const currentTime = new Date();
-    const createdAtDate = new Date(created_at);
-
-    const timeDifference = currentTime.getTime() - createdAtDate.getTime();
-
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (days > 0) {
-      const createdAtDay = createdAtDate.getDate();
-      const createdAtMonth = createdAtDate.toLocaleString("default", {
-        month: "short",
-      });
-      return `${createdAtDay} ${createdAtMonth}`;
-    } else if (hours > 0) {
-      return `${hours}h`;
-    } else if (minutes > 0) {
-      return `${minutes}m`;
-    } else {
-      return `${seconds}s`;
-    }
-  }
 
   return optimisticTweets?.map((post) => (
     <div

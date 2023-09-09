@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import { PublicUsers } from "@prisma/client";
-import { authOptions } from "@/libs/authOptions";
+import { Inter } from "next/font/google";
 
 import {
   Bookmark,
-  Feather,
   Mail,
   MoreHorizontal,
   ScrollText,
+  Settings,
   User as UserImage,
   Users2,
+  MailPlus,
 } from "lucide-react";
-
 import DropdownMenu from "@/components/User/DropdownMenu";
+import Link from "next/link";
+import { PublicUsers } from "@prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/authOptions";
+import { redirect } from "next/navigation";
+import React from "react";
+import UserProfileChat from "@/components/User/UserProfileChat";
 import NotificationButton from "@/components/Notification/NotificationButton";
 
 export const metadata: Metadata = {
@@ -36,6 +39,35 @@ export default async function RootLayout({
     await prisma?.publicUsers.findUnique({
       where: { id: session?.user?.id },
     });
+
+  const data = await prisma?.message.findMany({
+    where: {
+      OR: [
+        {
+          userOne_id: session?.user?.id,
+        },
+        {
+          userTwo_id: session?.user?.id,
+        },
+      ],
+    },
+    include: {
+      directMessage: true,
+      userOne: true,
+      userTwo: true,
+    },
+  });
+
+  const messages: MessageWithUsers[] | undefined = data?.map((msg) => {
+    const user =
+      (msg.userTwo_id === session?.user?.id && msg.userOne) ||
+      (msg.userOne_id === session?.user?.id && msg.userTwo);
+
+    return {
+      ...msg,
+      user,
+    };
+  });
 
   return (
     <div className="min-h-full mx-auto">
@@ -65,7 +97,7 @@ export default async function RootLayout({
                 </svg>
               </Link>
             </div>
-            <ul className="mt-2 w-max mx-auto flex flex-col justify-center">
+            <ul className="mt-2 w-max mx-auto">
               <li className="w-max">
                 <Link
                   href="/"
@@ -185,68 +217,49 @@ export default async function RootLayout({
                   <span className="text-white text-xl max-xl:hidden">More</span>
                 </Link>
               </li>
-              <li className="mt-5 w-full justify-center flex items-center">
+              <li className="mt-5 max-xl:hidden w-max">
                 <Link href={"/post/create"}>
-                  <button className="bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-20 py-3 w-max max-xl:hidden">
+                  <button className="bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-20 py-3 w-max">
                     Post
-                  </button>
-                  <button className="xl:hidden  bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-3 py-3 w-max">
-                    <Feather width={19} height={19} />
                   </button>
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="flex items-end">
+          <div className="flex items-end max-xl:hidden">
             <DropdownMenu publicUser={user} />
           </div>
         </aside>
-        <main className="w-full max-w-[920px] max-lg:w-max max-sm:w-full justify-center flex flex-row gap-5">
-          {children}
-          <aside className="h-screen flex max-w-[300px] flex-col gap-3 max-lg:hidden">
-            <div className="w-full mt-2">
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full bg-[#212327] py-2 px-4 text-sm rounded-3xl outline-none active:border active:border-sky-600 focus:border-sky-600 focus:border  text-white"
-              />
-            </div>
-            <div className="bg-[#16181c] p-4 rounded-2xl">
-              <h3 className="text-white text-xl font-bold">
-                Subscribe to Premium
-              </h3>
-              <span className="font-medium">
-                Subscribe to unlock new features and if eligible, receive a
-                share of ads revenue.
-              </span>
-              <button className="rounded-3xl px-4 py-2 bg-sky-600 mt-2 font-semibold">
-                Subscribe
-              </button>
-            </div>
-            <div className="bg-[#16181c] rounded-2xl">
-              <h3 className="text-white text-xl font-bold px-4 pt-4 ">
-                What&apos;s happeng
-              </h3>
-              <div className="flex flex-col">
-                <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-                  <span className="text-sm text-zinc-500">
-                    Treding in Colombia
-                  </span>
-                  <h4 className="text-white font-semibold">#golgolcaracol</h4>
+        <main className="w-full max-w-[920px] mx-auto flex flex-row gap-5">
+          <>
+            <div className="w-full border-r border-zinc-600 max-w-[390px]  max-lg:max-w-[800px]">
+              <header className="flex flex-row justify-between p-4 max-lg:hidden max-lg:opacity-0">
+                <div>
+                  <h2 className="text-xl font-bold">Messages</h2>
                 </div>
-                <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-                  <span className="text-sm text-zinc-500">Sports Trending</span>
-                  <h4 className="text-white font-semibold">Feid</h4>
+                <div className="flex flex-row gap-2">
+                  <Settings />
+                  <MailPlus />
                 </div>
-                <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer rounded-b-2xl">
-                  <span className="text-sm text-zinc-500">
-                    Business & fiance
-                  </span>
-                  <h4 className="text-white font-semibold">Musk</h4>
+              </header>
+              <main className="max-lg:hidden max-lg:opacity-0">
+                <div className="p-4">
+                  <input
+                    placeholder="Search Direct Messages"
+                    type="search"
+                    className="bg-black w-full py-2 px-4 rounded-3xl border border-zinc-500 outline-none text-zinc-800 text-sm"
+                  />
                 </div>
-              </div>
+                <div>
+                  <UserProfileChat messages={messages} />
+                </div>
+              </main>
+              <div className="lg:hidden max-w-[600px] mx-auto">{children}</div>
             </div>
-          </aside>
+            <main className="border-r border-zinc-600 flex max-w-[600px] w-full max-lg:hidden max-lg:opacity-0 ">
+              {children}
+            </main>
+          </>
         </main>
       </div>
     </div>

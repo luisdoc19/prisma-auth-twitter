@@ -40,7 +40,7 @@ export default function DropdownMenuDemo({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className="flex flex-row gap-2 hover:bg-zinc-800 p-2 rounded-3xl select-none cursor-pointer">
+        <div className="flex w-full items-center justify-center flex-row gap-2 hover:bg-zinc-800 p-2 max-xl:rounded-full rounded-3xl select-none cursor-pointer">
           <Image
             width={1080}
             height={1080}
@@ -48,11 +48,11 @@ export default function DropdownMenuDemo({
             alt=""
             className="rounded-full w-[45px] h-[45px]"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col max-xl:hidden">
             <span className="font-semibold">{publicUser?.name}</span>
             <span className="">@{publicUser?.user_name}</span>
           </div>
-          <div className="flex self-center">
+          <div className="flex self-center max-xl:hidden">
             <MoreHorizontal className="w-[15px]" />
           </div>
         </div>

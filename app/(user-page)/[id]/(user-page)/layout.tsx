@@ -141,44 +141,6 @@ export default async function RootLayout({
           </main>
         </div>
       </div>
-      <aside className="h-screen flex max-w-[300px] flex-col gap-3 max-lg:hidden">
-        <div className="w-full mt-2">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-[#212327] py-2 px-4 text-sm rounded-3xl outline-none active:border active:border-sky-600 focus:border-sky-600 focus:border  text-white"
-          />
-        </div>
-        <div className="bg-[#16181c] p-4 rounded-2xl">
-          <h3 className="text-white text-xl font-bold">Subscribe to Premium</h3>
-          <span className="font-medium">
-            Subscribe to unlock new features and if eligible, receive a share of
-            ads revenue.
-          </span>
-          <button className="rounded-3xl px-4 py-2 bg-sky-600 mt-2 font-semibold">
-            Subscribe
-          </button>
-        </div>
-        <div className="bg-[#16181c] rounded-2xl">
-          <h3 className="text-white text-xl font-bold px-4 pt-4 ">
-            What&apos;s happeng
-          </h3>
-          <div className="flex flex-col">
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-              <span className="text-sm text-zinc-500">Treding in Colombia</span>
-              <h4 className="text-white font-semibold">#golgolcaracol</h4>
-            </div>
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-              <span className="text-sm text-zinc-500">Sports Trending</span>
-              <h4 className="text-white font-semibold">Feid</h4>
-            </div>
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer rounded-b-2xl">
-              <span className="text-sm text-zinc-500">Business & fiance</span>
-              <h4 className="text-white font-semibold">Musk</h4>
-            </div>
-          </div>
-        </div>
-      </aside>
     </>
   );
 }

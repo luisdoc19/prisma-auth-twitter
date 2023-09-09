@@ -17,6 +17,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   const postsByUser: PostsWIthUser[] | null | undefined =
     await prisma?.posts.findMany({
       where: {
+        replied_id: null,
         user: {
           user_name: params.id,
         },
@@ -24,6 +25,7 @@ const page = async ({ params }: { params: { id: string } }) => {
       include: {
         user: true,
         like: true,
+        replies: true,
       },
       orderBy: {
         createdAt: "desc",

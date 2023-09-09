@@ -25,8 +25,19 @@ export default async function handle(
       },
     });
 
-    const userNotification = `notification:${response.post_id}`;
-    res?.socket?.server?.io?.emit(userNotification, response);
+    const createNotification = await prisma.notifications.create({
+      data: {
+        type: "like",
+        likeId: response.id,
+        userId: response.post.user_id,
+      },
+      include: {
+        like: true,
+      },
+    });
+
+    const userNotification = `notification:${createNotification.userId}`;
+    res?.socket?.server?.io?.emit(userNotification, createNotification);
 
     if (!response) {
       return NextResponse.json(

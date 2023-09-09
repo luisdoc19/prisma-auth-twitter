@@ -72,7 +72,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className="sm:w-[600px] max-lg:max-w-[600px]  overflow-y-auto">
+      <div className="max-w-[600px] w-full overflow-y-auto">
         <div className="h-[100vh]">
           <header className=" border-b border-zinc-800/60 p-4 sticky top-0 bg-[rgba(0,0,0,0.3)] backdrop-blur-lg backdrop-saturate-[57%] border-r z-30">
             <h2 className="text-white text-xl font-bold">Home</h2>
@@ -98,44 +98,6 @@ export default async function Home() {
           </main>
         </div>
       </div>
-      <aside className="h-screen flex max-w-[300px] flex-col gap-3 max-lg:hidden">
-        <div className="w-full mt-2">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-[#212327] py-2 px-4 text-sm rounded-3xl outline-none active:border active:border-sky-600 focus:border-sky-600 focus:border  text-white"
-          />
-        </div>
-        <div className="bg-[#16181c] p-4 rounded-2xl">
-          <h3 className="text-white text-xl font-bold">Subscribe to Premium</h3>
-          <span className="font-medium">
-            Subscribe to unlock new features and if eligible, receive a share of
-            ads revenue.
-          </span>
-          <button className="rounded-3xl px-4 py-2 bg-sky-600 mt-2 font-semibold">
-            Subscribe
-          </button>
-        </div>
-        <div className="bg-[#16181c] rounded-2xl">
-          <h3 className="text-white text-xl font-bold px-4 pt-4 ">
-            What&apos;s happeng
-          </h3>
-          <div className="flex flex-col">
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-              <span className="text-sm text-zinc-500">Treding in Colombia</span>
-              <h4 className="text-white font-semibold">#golgolcaracol</h4>
-            </div>
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer">
-              <span className="text-sm text-zinc-500">Sports Trending</span>
-              <h4 className="text-white font-semibold">Feid</h4>
-            </div>
-            <div className="w-full hover:bg-zinc-800 py-2 px-4 cursor-pointer rounded-b-2xl">
-              <span className="text-sm text-zinc-500">Business & fiance</span>
-              <h4 className="text-white font-semibold">Musk</h4>
-            </div>
-          </div>
-        </div>
-      </aside>
     </>
   );
 }

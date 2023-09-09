@@ -26,12 +26,33 @@ model PublicUsers {
   userOne Message[] @relation("userOne")
   userTwo Message[] @relation("userTwo")
 
+
+  follower Follow[] @relation("follower")
+  following Follow[] @relation("following")
+
+  notification Notifications[]
+
   messageSender DirectMessage[]
 
 
   @@map("public_users")
 
 }
+
+model Follow {
+  id String @id @default(uuid())
+
+  follower_id String
+  following_id String
+
+  follower PublicUsers @relation("follower", fields: [follower_id], references: [id], onDelete: Cascade)
+  following PublicUsers @relation("following", fields: [following_id], references: [id], onDelete: Cascade)
+
+  notification Notifications[]
+
+  @@unique([follower_id, following_id])
+}
+
 
 model Posts {
   id        String     @id @default(uuid())
@@ -50,6 +71,8 @@ model Posts {
   replied_id String?   @map("replied_id")
   parentPost Posts?    @relation("RepliesTo", fields: [replied_id], references: [id])
 
+
+
   replies   Posts[]    @relation("RepliesTo")
 }
 
@@ -63,6 +86,7 @@ model Like {
   user PublicUsers @relation(fields: [user_id], references: [id], onDelete: Cascade)
   post Posts      @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
+  notification Notifications[]
 
   @@unique([user_id, post_id])
 }
@@ -98,6 +122,20 @@ model DirectMessage {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+
+model Notifications {
+  id String @id @default(uuid())
+  type String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  likeId String? @map("like_id")
+  like Like? @relation(fields: [likeId], references: [id], onDelete: Cascade)
+  userId String? @map("user_id")
+  user PublicUsers? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followId String? @map("follow_id")
+  follow Follow? @relation(fields: [followId], references: [id], onDelete: Cascade)
 }
 
 

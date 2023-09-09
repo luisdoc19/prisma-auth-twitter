@@ -31,14 +31,14 @@ const LikeTweet = ({
   const { data } = useSession();
   const session: SessionWithId | null | any = data;
   const router = useRouter();
-  const likeKey = `notification:${post.id}`;
+  const likeKey = `notification:${post?.id}`;
   const { socket } = useSocket();
 
   const handleLike = async () => {
     if (!session) return;
     if (!session?.user?.id) return;
 
-    if (post.user_liked) {
+    if (post?.user_liked) {
       addOptimisticPost({
         ...post,
         user_liked: false,
@@ -54,10 +54,10 @@ const LikeTweet = ({
       addOptimisticPost({
         ...post,
         user_liked: true,
-        like_length: post.like_length + 1,
+        like_length: post?.like_length + 1,
       });
       const { data } = await axios.post("/api/socket/like", {
-        postId: post.id,
+        postId: post?.id,
         id: session?.user?.id,
       });
       router.refresh();

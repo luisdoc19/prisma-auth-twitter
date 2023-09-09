@@ -34,4 +34,19 @@ declare global {
     like_length: number;
     user_liked: boolean;
   };
+  type PublicUser =
+    | {
+        id: string;
+        name: string;
+        email: string | null;
+        password: string | null;
+        bio: string | null;
+        user_name: string | null;
+        emailVerified: boolean;
+        image: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+      }
+    | null
+    | undefined;
 }
