@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { Session, User } from "next-auth";
-import { get } from "http";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
 

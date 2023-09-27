@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import UsernameModal from "../modals/UsernameModal";
 import UserinfoModal from "../modals/UserinfoModal";
+import UnfollowModal from "../modals/UnfollowModal";
 
 const ModalProvider = () => {
   const [mounted, setMounted] = useState(false);
@@ -18,6 +19,7 @@ const ModalProvider = () => {
     <>
       <UsernameModal />
       <UserinfoModal />
+      <UnfollowModal />
     </>
   );
 };

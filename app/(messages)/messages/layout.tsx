@@ -10,6 +10,7 @@ import {
   User as UserImage,
   Users2,
   MailPlus,
+  Feather,
 } from "lucide-react";
 import DropdownMenu from "@/components/User/DropdownMenu";
 import Link from "next/link";
@@ -97,7 +98,7 @@ export default async function RootLayout({
                 </svg>
               </Link>
             </div>
-            <ul className="mt-2 w-max mx-auto">
+            <ul className="mt-2 w-max mx-auto flex flex-col justify-center">
               <li className="w-max">
                 <Link
                   href="/"
@@ -217,22 +218,25 @@ export default async function RootLayout({
                   <span className="text-white text-xl max-xl:hidden">More</span>
                 </Link>
               </li>
-              <li className="mt-5 max-xl:hidden w-max">
+              <li className="mt-5 w-full justify-center flex items-center">
                 <Link href={"/post/create"}>
-                  <button className="bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-20 py-3 w-max">
+                  <button className="bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-20 py-3 w-max max-xl:hidden">
                     Post
+                  </button>
+                  <button className="xl:hidden  bg-primary text-white font-bold text-xl bg-sky-600 rounded-full px-3 py-3 w-max">
+                    <Feather width={19} height={19} />
                   </button>
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="flex items-end max-xl:hidden">
+          <div className="flex items-end">
             <DropdownMenu publicUser={user} />
           </div>
         </aside>
-        <main className="w-full max-w-[920px] mx-auto flex flex-row gap-5">
+        <main className="w-full max-w-[920px] max-lg:w-max max-sm:w-full justify-center flex flex-row gap-5">
           <>
-            <div className="w-full border-r border-zinc-600 max-w-[390px]  max-lg:max-w-[800px]">
+            <div className="w-full border-r border-zinc-600 max-w-[350px]  max-lg:max-w-[800px]">
               <header className="flex flex-row justify-between p-4 max-lg:hidden max-lg:opacity-0">
                 <div>
                   <h2 className="text-xl font-bold">Messages</h2>
@@ -242,7 +246,7 @@ export default async function RootLayout({
                   <MailPlus />
                 </div>
               </header>
-              <main className="max-lg:hidden max-lg:opacity-0">
+              <main className="max-lg:hidden max-lg:opacity-0 mx-auto max-md:w-full w-full">
                 <div className="p-4">
                   <input
                     placeholder="Search Direct Messages"
@@ -254,9 +258,11 @@ export default async function RootLayout({
                   <UserProfileChat messages={messages} />
                 </div>
               </main>
-              <div className="lg:hidden max-w-[600px] mx-auto">{children}</div>
+              <div className="lg:hidden mx-auto max-md:w-full w-full">
+                {children}
+              </div>
             </div>
-            <main className="border-r border-zinc-600 flex max-w-[600px] w-full max-lg:hidden max-lg:opacity-0 ">
+            <main className="border-r border-zinc-600 max-lg:hidden max-lg:opacity-0 w-full max-w-[920px] max-lg:w-max max-sm:w-full justify-center flex flex-row gap-5">
               {children}
             </main>
           </>

@@ -1,0 +1,43 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * degular:
+ *   - http://typekit.com/eulas/00000000000000007735c86d
+ *   - http://typekit.com/eulas/00000000000000007735c872
+ *   - http://typekit.com/eulas/00000000000000007735c877
+ *   - http://typekit.com/eulas/00000000000000007735c87d
+ *
+ * © 2009-2023 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2022-06-08 07:23:45 UTC"}*/
+
+@import url("https://p.typekit.net/p.css?s=1&k=aqu7wgo&ht=tk&f=44512.44514.44516.44518&a=104876918&app=typekit&e=css");
+
+@font-face {
+font-family:"degular";
+src:url("https://use.typekit.net/af/11ba66/00000000000000007735c86d/30/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3") format("woff2"),url("https://use.typekit.net/af/11ba66/00000000000000007735c86d/30/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3") format("woff"),url("https://use.typekit.net/af/11ba66/00000000000000007735c86d/30/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:500;font-stretch:normal;
+}
+
+@font-face {
+font-family:"degular";
+src:url("https://use.typekit.net/af/2fce28/00000000000000007735c872/30/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/2fce28/00000000000000007735c872/30/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/2fce28/00000000000000007735c872/30/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n6&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:600;font-stretch:normal;
+}
+
+@font-face {
+font-family:"degular";
+src:url("https://use.typekit.net/af/36a2f5/00000000000000007735c877/30/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/36a2f5/00000000000000007735c877/30/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/36a2f5/00000000000000007735c877/30/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:700;font-stretch:normal;
+}
+
+@font-face {
+font-family:"degular";
+src:url("https://use.typekit.net/af/443113/00000000000000007735c87d/30/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n8&v=3") format("woff2"),url("https://use.typekit.net/af/443113/00000000000000007735c87d/30/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n8&v=3") format("woff"),url("https://use.typekit.net/af/443113/00000000000000007735c87d/30/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n8&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:800;font-stretch:normal;
+}
+
+.tk-degular { font-family: "degular",sans-serif; }

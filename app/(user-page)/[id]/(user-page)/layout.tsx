@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Posts, PublicUsers } from "@prisma/client";
+import { Follow, Posts, PublicUsers } from "@prisma/client";
 import { authOptions } from "@/libs/authOptions";
 
 import {
@@ -33,6 +33,8 @@ export const metadata: Metadata = {
 
 type UserWithPosts = PublicUsers & {
   posts: Posts[];
+  follower: Follow[];
+  following: Follow[];
 };
 
 export default async function RootLayout({
@@ -49,7 +51,7 @@ export default async function RootLayout({
   const user: UserWithPosts | null | undefined =
     await prisma?.publicUsers.findUnique({
       where: { user_name: params.id },
-      include: { posts: true },
+      include: { posts: true, follower: true, following: true },
     });
 
   return (
@@ -120,15 +122,15 @@ export default async function RootLayout({
               <div className="flex flex-row gap-2 mt-2 text-sm">
                 <span className="flex flex-row gap-1 cursor-pointer hover:underline font-extralight">
                   <strong className="text-white font-bold block text-md">
-                    0
+                    {user?.follower.length || 0}
                   </strong>
-                  Siguiendo
+                  Following
                 </span>
                 <span className="ml-2 flex flex-row gap-1 cursor-pointer hover:underline font-extralight">
                   <strong className="text-white font-bold block text-md">
-                    12
+                    {user?.following.length}
                   </strong>
-                  Seguidores
+                  Followers
                 </span>
               </div>
             </div>

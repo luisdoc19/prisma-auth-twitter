@@ -32,7 +32,23 @@ export default async function handle(
         userId: response.post.user_id,
       },
       include: {
-        like: true,
+        follow: {
+          include: {
+            following: true,
+            follower: true,
+          },
+        },
+        like: {
+          include: {
+            user: true,
+            post: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+        user: true,
       },
     });
 

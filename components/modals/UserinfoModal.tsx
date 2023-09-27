@@ -44,7 +44,6 @@ const UserinfoModal = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       const { data } = await axios.get(`/api/user?userId=${id}`);
-      console.log(data.user);
       setUser(data.user);
     };
     if (id === null) return onClose();
