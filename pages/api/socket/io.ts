@@ -1,8 +1,13 @@
 import { Server as NetServer } from "http";
-// @ts-ignore
 import { Server as ServerIO } from "socket.io";
 import { NextApiRequest } from "next";
 import { NextApiResponseServerIo } from "@/types";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!res.socket.server.io) {
