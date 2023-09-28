@@ -1,8 +1,11 @@
 import { useModal } from "@/hooks/useModal";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const UnfollowModal = () => {
-  const { open, onClose, user } = useModal();
+  const router = useRouter();
+  const { open, onClose, user, id } = useModal();
   return (
     open && (
       <div
@@ -21,7 +24,18 @@ const UnfollowModal = () => {
             still view their profile, unless their posts are protected.
           </p>
           <div className="flex flex-col gap-2 mt-4">
-            <button className="w-full bg-white rounded-3xl font-bold text-black py-2 cursor-pointer">
+            <button
+              className="w-full bg-white rounded-3xl font-bold text-black py-2 cursor-pointer"
+              onClick={async () => {
+                const { data } = await axios.delete(
+                  `/api/unfollow/${id}/to/${user?.id}`
+                );
+                if (data.status) {
+                  onClose();
+                  router.refresh();
+                }
+              }}
+            >
               Unfollow
             </button>
             <button

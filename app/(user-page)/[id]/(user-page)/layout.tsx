@@ -25,6 +25,7 @@ import UserLinks from "@/components/User/UserLinks";
 import UserFollowButton from "@/components/User/UserFollowButton";
 import UserChangeInfo from "@/components/User/UserChangeInfo";
 import NotificationButton from "@/components/Notification/NotificationButton";
+import RetrieveUser from "@/components/User/RetrieveUser";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -51,8 +52,24 @@ export default async function RootLayout({
   const user: UserWithPosts | null | undefined =
     await prisma?.publicUsers.findUnique({
       where: { user_name: params.id },
-      include: { posts: true, follower: true, following: true },
+      include: {
+        posts: true,
+        follower: {
+          include: {
+            following: true,
+          },
+        },
+        following: {
+          include: {
+            follower: true,
+          },
+        },
+      },
     });
+
+  const isFollowing = user?.following
+    .map((follow) => follow.follower_id)
+    .includes(session?.user?.id);
 
   return (
     <>
@@ -60,9 +77,7 @@ export default async function RootLayout({
         <div className="h-[100vh]">
           <header className="border-b border-zinc-600">
             <div className="flex flex-row px-4 py-1 items-center gap-8 sticky top-0 backdrop-blur-lg backdrop-saturate-[37%] bg-[rgba(0,0,0,0.64)]  z-30">
-              <Link href="/">
-                <ArrowLeft width={18} />
-              </Link>
+              <RetrieveUser />
               <div className="flex flex-col">
                 <h2 className="text-xl text-white font-bold">{user?.name}</h2>
                 <span className="text-sm text-zinc-500">
@@ -95,7 +110,8 @@ export default async function RootLayout({
                 ) : (
                   <UserFollowButton
                     id={session?.user?.id}
-                    otherUserId={user?.id}
+                    otherUserId={user}
+                    isFollowing={isFollowing || false}
                   />
                 )}
               </div>
@@ -120,18 +136,24 @@ export default async function RootLayout({
                 </span>
               </div>
               <div className="flex flex-row gap-2 mt-2 text-sm">
-                <span className="flex flex-row gap-1 cursor-pointer hover:underline font-extralight">
+                <Link
+                  href={`/${user?.user_name}/following`}
+                  className="flex flex-row gap-1 cursor-pointer hover:underline font-extralight"
+                >
                   <strong className="text-white font-bold block text-md">
                     {user?.follower.length || 0}
                   </strong>
                   Following
-                </span>
-                <span className="ml-2 flex flex-row gap-1 cursor-pointer hover:underline font-extralight">
+                </Link>
+                <Link
+                  href={`/${user?.user_name}/followers`}
+                  className="ml-2 flex flex-row gap-1 cursor-pointer hover:underline font-extralight"
+                >
                   <strong className="text-white font-bold block text-md">
                     {user?.following.length}
                   </strong>
                   Followers
-                </span>
+                </Link>
               </div>
             </div>
             <div className="mt-4">

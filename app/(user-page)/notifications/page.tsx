@@ -35,6 +35,7 @@ const page = async () => {
       createdAt: "desc",
     },
   });
+  console.log(notifications);
 
   return (
     <div>

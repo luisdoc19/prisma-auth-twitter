@@ -1,6 +1,6 @@
 import { prisma } from "@/libs/prisma";
-import { NextResponse } from "next/server";
-export async function GET(req: NextResponse, res: Response) {
+import { NextRequest, NextResponse } from "next/server";
+export async function GET(req: NextRequest, res: NextResponse) {
   const requestUrl = new URL(req.url);
 
   const id = requestUrl.searchParams.get("id");

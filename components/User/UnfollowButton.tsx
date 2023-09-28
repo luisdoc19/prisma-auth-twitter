@@ -7,10 +7,10 @@ const UnfollowButton = ({ id, userId }: { id: string; userId: PublicUser }) => {
   const { onOpen } = useModal();
   return (
     <button
-      className={`text-white font-bold text-sm px-4 py-1 rounded-2xl border border-zinc-600 ${
+      className={`font-bold text-base px-4 py-1 mr-2  shadow-sm hover:opacity-90 rounded-2xl border ${
         active
           ? "border-[#67070f]/50 text-[#f4212e] bg-[#67070f]/30"
-          : "bg-transparent"
+          : "bg-transparent text-white border-zinc-600"
       }`}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}

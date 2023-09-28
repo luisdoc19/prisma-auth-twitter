@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, Session } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
@@ -7,6 +7,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/libs/prisma";
 import { NextResponse } from "next/server";
+import { AdapterUser } from "next-auth/adapters";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as any),
@@ -62,7 +64,15 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token, user }) => {
+    session: async ({
+      session,
+      token,
+      user,
+    }: {
+      session: any;
+      token: JWT;
+      user: AdapterUser;
+    }) => {
       const userExits = await prisma.publicUsers.findUnique({
         where: {
           id: token.id as string,
@@ -73,9 +83,9 @@ export const authOptions: NextAuthOptions = {
         await prisma.publicUsers.create({
           data: {
             id: token.id as string,
-            name: session.user?.name as string,
-            email: session.user?.email as string,
-            image: session.user?.image as string,
+            name: session?.user?.name,
+            email: session?.user?.email as string,
+            image: session?.user?.image as string,
             user_name: token?.user_name as string,
           },
         });
@@ -85,7 +95,6 @@ export const authOptions: NextAuthOptions = {
         ...session,
         exp: token.exp,
         user: {
-          id: token.id,
           ...session.user,
           user_name: token.user_name,
           randomKey: token.randomKey,

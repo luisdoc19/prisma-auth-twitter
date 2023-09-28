@@ -1,3 +1,4 @@
+import FollowsButtons from "@/components/User/FollowsButtons";
 import UnfollowButton from "@/components/User/UnfollowButton";
 import { UserHover } from "@/components/User/UserHover";
 import { authOptions } from "@/libs/authOptions";
@@ -45,7 +46,11 @@ const page = async ({ params }: { params: { id: string } }) => {
               </span>
             </div>
             <div className="flex self-center">
-              <UnfollowButton id={session.user.id} userId={follow.following} />
+              <FollowsButtons
+                isFollowing={true}
+                id={session.user.id}
+                otherUser={follow.following}
+              />
             </div>
           </div>
           <div>

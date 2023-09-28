@@ -11,6 +11,7 @@ const Notification = ({ notifications, id }: any) => {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const { socket } = useSocket();
+
   const [optimisticNotification, addOptimisticNotification] =
     experimental_useOptimistic(
       notifications,
@@ -60,9 +61,7 @@ const Notification = ({ notifications, id }: any) => {
                   className="w-[30px] h-[30px] rounded-full"
                 />
                 <span className="text-white text-base">
-                  <strong>
-                    {notification.like?.user.name} {}
-                  </strong>
+                  <strong>{notification.follow.follower.user_name} </strong>
                   followed you
                 </span>
                 <span className="text-zinc-500 text-base">

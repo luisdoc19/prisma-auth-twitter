@@ -166,7 +166,7 @@ export default async function RootLayout({
               </li>
               <li className="w-max mt-2">
                 <Link
-                  href={"/"}
+                  href={`/${user?.user_name}`}
                   className="flex flex-row gap-4 hover:bg-zinc-800 w-max px-4 py-3 rounded-3xl mx-auto"
                 >
                   <UserImage />
