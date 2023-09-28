@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
-
+import { prisma } from "@/libs/prisma";
 import noUser from "@/public/no-user-image-icon-23.jpg";
 import Link from "next/link";
 

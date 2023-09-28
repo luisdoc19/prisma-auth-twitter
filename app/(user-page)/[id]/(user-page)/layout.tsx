@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Follow, Posts, PublicUsers } from "@prisma/client";
 import { authOptions } from "@/libs/authOptions";
+import { prisma } from "@/libs/prisma";
 
 import {
   ArrowLeft,

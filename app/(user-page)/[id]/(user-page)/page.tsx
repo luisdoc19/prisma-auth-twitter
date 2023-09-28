@@ -4,6 +4,7 @@ import { Like, PublicUsers } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import { prisma } from "@/libs/prisma";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const session: SessionWithExp | null = await getServerSession(authOptions);

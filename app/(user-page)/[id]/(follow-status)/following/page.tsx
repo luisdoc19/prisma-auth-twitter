@@ -6,6 +6,7 @@ import { Follow, Posts, PublicUsers } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import { prisma } from "@/libs/prisma";
 
 type UserWithPosts = PublicUsers & {
   follower: FollowersWithUser[];

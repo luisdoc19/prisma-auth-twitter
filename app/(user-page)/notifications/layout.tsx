@@ -1,5 +1,6 @@
 import { Settings } from "lucide-react";
 import React from "react";
+import { prisma } from "@/libs/prisma";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

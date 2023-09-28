@@ -5,6 +5,7 @@ import { MailPlus, Settings } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import { prisma } from "@/libs/prisma";
 
 const page = async () => {
   const session: SessionWithExp | null = await getServerSession(authOptions);

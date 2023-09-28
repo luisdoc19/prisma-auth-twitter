@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import React from "react";
+import { prisma } from "@/libs/prisma";
 
 const layout = async ({
   children,
