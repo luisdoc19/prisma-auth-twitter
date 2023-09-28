@@ -1,10 +1,9 @@
-import { Session, User, getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/authOptions";
 import { redirect } from "next/navigation";
-import { Like, Posts, PublicUsers } from "@prisma/client";
+import { PublicUsers } from "@prisma/client";
 import PostForm from "@/components/Form/PostForm";
 import PostsTweets from "@/components/Form/PostsTweets";
-import UserMessage from "@/components/User/UserMessage";
 import { prisma } from "@/libs/prisma";
 import noUser from "@/public/no-user-image-icon-23.jpg";
 import Image from "next/image";

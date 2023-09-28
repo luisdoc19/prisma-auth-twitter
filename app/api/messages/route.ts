@@ -7,6 +7,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const id = requestUrl.searchParams.get("id");
   const otherUserId = requestUrl.searchParams.get("otherUserId");
 
+  console.log(id, otherUserId);
+
   if (!id || !otherUserId) return;
 
   const message = await prisma?.message.findFirst({

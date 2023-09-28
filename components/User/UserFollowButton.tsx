@@ -26,7 +26,7 @@ const UserFollowButton = ({
         className="border-zinc-600 border rounded-full p-2 select-none cursor-pointer"
         onClick={async () => {
           const { data } = await axios.get(
-            `/api/messages?id=${id}&otherUserId=${otherUserId}`
+            `/api/messages?id=${id}&otherUserId=${otherUserId?.id}`
           );
           router.push(`/messages/${data?.link}`);
         }}
