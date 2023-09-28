@@ -10,7 +10,7 @@ import noUser from "@/public/no-user-image-icon-23.jpg";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function page() {
   const session: SessionWithExp | null = await getServerSession(authOptions);
   if (!session?.user || session?.exp < Date.now() / 1000) redirect("/sign-in");
 
@@ -72,13 +72,13 @@ export default async function Home() {
 
   return (
     <>
-      <div className="max-w-[600px] w-full overflow-y-auto">
+      <div className="max-w-[600px] w-full overflow-y-auto border-r border-zinc-600">
         <div className="h-[100vh]">
-          <header className=" border-b border-zinc-800/60 p-4 sticky top-0 bg-[rgba(0,0,0,0.3)] backdrop-blur-lg backdrop-saturate-[57%] border-r z-30">
+          <header className=" border-b border-zinc-600 p-4 sticky top-0 bg-[rgba(0,0,0,0.3)] backdrop-blur-lg backdrop-saturate-[57%] z-30">
             <h2 className="text-white text-xl font-bold">Home</h2>
           </header>
           <main className="h-[93%] flex flex-col">
-            <div className="flex flex-row w-full p-4 border-b border-zinc-800">
+            <div className="flex flex-row w-full p-4 border-b border-zinc-600">
               <div>
                 <Link href={`/${user?.user_name}`}>
                   <Image
@@ -101,4 +101,3 @@ export default async function Home() {
     </>
   );
 }
-2;

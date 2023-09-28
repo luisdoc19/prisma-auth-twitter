@@ -89,7 +89,7 @@ const PostForm = ({ session }: { session: string | undefined }) => {
                 loading && "opacity-50"
               }}`}
             >
-              {loading && <span className="loader"></span>}
+              {loading && <span className="loading"></span>}
               Post
             </button>
           </div>
