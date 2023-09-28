@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Session, User, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/authOptions";
+import { prisma } from "@/libs/prisma";
 
 type SessionWithExp = Session & {
   user: User & {
